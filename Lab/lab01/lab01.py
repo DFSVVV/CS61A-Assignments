@@ -1,3 +1,6 @@
+from ftplib import print_line
+
+
 def digit(n, k):
     """Return the digit that is k from the right of n for positive integers n and k.
 
@@ -8,7 +11,14 @@ def digit(n, k):
     >>> digit(3579, 10)
     0
     """
-    return ____
+    fin = 0
+    st = str(abs(n))
+    a = len(str(abs(n)))
+    if k > a:
+        fin = 0
+    else:
+        fin = st[a - k - 1]
+    return int(fin)
 
 
 def middle(a, b, c):
@@ -26,7 +36,9 @@ def middle(a, b, c):
     >>> middle(30, 5, 40)
     30
     """
-    return ____
+    d = [a, b, c]
+    d.sort(reverse=True)
+    return d[1]
 
 
 def falling(n, k):
@@ -42,7 +54,11 @@ def falling(n, k):
     1
     """
     "*** YOUR CODE HERE ***"
-
+    fin = 1
+    while k > 0:
+        fin *= n - k + 1
+        k-=1
+    return fin
 
 def divisible_by_k(n, k):
     """
@@ -65,8 +81,11 @@ def divisible_by_k(n, k):
     0
     """
     "*** YOUR CODE HERE ***"
-
-
+    fin = k
+    while fin <= n:
+        print_line(fin)
+        fin += k
+    return (fin//k) - 1
 def sum_digits(y):
     """Sum all the digits of y.
 
@@ -81,8 +100,11 @@ def sum_digits(y):
     6
     """
     "*** YOUR CODE HERE ***"
-
-
+    st = str(y)
+    fin = 0
+    for i in st:
+        fin += int(i)
+    return fin
 def double_eights(n):
     """Return true if n has two eights in a row.
     >>> double_eights(8)
@@ -99,4 +121,13 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    st = str(n)
+    t = 0
+    for i in st:
+        if int(i) == 8:
+            t+=1
+        else:
+            t = 0
+        if t == 2:
+            return True
+    return False
