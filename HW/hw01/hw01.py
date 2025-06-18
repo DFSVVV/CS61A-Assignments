@@ -1,3 +1,4 @@
+from ftplib import print_line
 from operator import add, sub
 
 def a_plus_abs_b(a, b):
@@ -13,9 +14,9 @@ def a_plus_abs_b(a, b):
     3
     """
     if b < 0:
-        f = _____
+        f = sub
     else:
-        f = _____
+        f = add
     return f(a, b)
 
 def a_plus_abs_b_syntax_check():
@@ -42,8 +43,11 @@ def two_of_three(i, j, k):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return _____
-
+    return two_three(i, j, k)
+def two_three(i, j, k):
+    a = [i, j, k]
+    a.sort()
+    return int(a[0]**2 + a[1]**2)
 def two_of_three_syntax_check():
     """Check that your two_of_three code consists of nothing but a return statement.
 
@@ -66,8 +70,12 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
-
-
+    factors = n - 1
+    while factors > 0:
+        if n%factors == 0:
+            return factors
+        factors -= 1
+    return factors
 def hailstone(n):
     """Print the hailstone sequence starting at n and return its
     length.
@@ -88,4 +96,15 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
-
+    factors = n
+    count = 0
+    while factors > 0:
+        print_line(factors)
+        count += 1
+        if factors == 1:
+            break
+        if factors%2 == 0:
+            factors = factors//2
+        else:
+            factors = factors*3 + 1
+    return count
