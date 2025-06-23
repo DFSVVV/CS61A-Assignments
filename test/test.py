@@ -1,35 +1,40 @@
+def move_stack(n, start, end):
+    """Print the moves required to move n disks on the start pole to the end
+    pole without violating the rules of Towers of Hanoi.
 
-def num_eights(n):
-    """Returns the number of times 8 appears as a digit of n.
+    n -- number of disks
+    start -- a pole position, either 1, 2, or 3
+    end -- a pole position, either 1, 2, or 3
 
-    >>> num_eights(3)
-    0
-    >>> num_eights(8)
-    1
-    >>> num_eights(88888888)
-    8
-    >>> num_eights(2638)
-    1
-    >>> num_eights(86380)
-    2
-    >>> num_eights(12345)
-    0
-    >>> num_eights(8782089)
-    3
-    >>> from construct_check import check
-    >>> # ban all assignment statements
-    >>> check(HW_SOURCE_FILE, 'num_eights',
-    ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
-    True
+    There are exactly three poles, and start and end must be different. Assume
+    that the start pole has at least n disks of increasing size, and the end
+    pole is either empty or has a top disk larger than the top n start disks.
+
+    >>> move_stack(1, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    >>> move_stack(2, 1, 3)
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 3
+    >>> move_stack(3, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 3 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 1
+    Move the top disk from rod 2 to rod 3
+    Move the top disk from rod 1 to rod 3
     """
+    assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
-    print(n)
-    t = n%10
-    if t == 0:
-        return 0
-    if t == 8:
-        return 1 + num_eights(t//10)
-    elif t != 8:
-        return num_eights(t//10)
-a = num_eights(88888)
-print(a)
+    def move(n,start,mid,end):
+        if n == 1:
+            print("Move the top disk from rod {} to rod {}".format(start,end))
+            return None
+        elif n != 1:
+            print("Move the top disk from rod {} to rod {}".format(start, mid))
+            move(n - 1,start,end,mid)
+            move(1,start,mid,end)
+            return move(n - 1,mid,start,end)
+    return move(n,start,2,end)
+move_stack(2, 1, 3)

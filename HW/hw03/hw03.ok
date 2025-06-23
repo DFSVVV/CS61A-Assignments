@@ -12,7 +12,9 @@
         "num_eights",
         "digit_distance",
         "interleaved_sum",
-        "count_dollars"
+        "count_dollars",
+        "move_stack",
+        "make_anonymous_factorial"
     ],
     "protocols": [
         "restore",

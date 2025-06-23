@@ -217,17 +217,17 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
-    def move(n,start,mid,end):
-        if n == 1:
-            print("Move the top disk from rod {} to rod {}".format(start,end))
-            return None
-        elif n != 1:
-            print("Move the top disk from rod {} to rod {}".format(start, mid))
-            move(n - 1,start,end,mid)
-            move(1,start,mid,end)
-            return move(n - 1,mid,start,end)
-    return move(n,start,2,end)
-from operator import sub, mul
+    if n == 1:
+        print_move(start, end)
+    else:
+        # The auxiliary pole is the one that's not start or end
+        auxiliary = 6 - start - end
+        # Move n-1 disks from start to auxiliary
+        move_stack(n - 1, start, auxiliary)
+        # Move the largest disk to end
+        print_move(start, end)
+        # Move n-1 disks from auxiliary to end
+        move_stack(n - 1, auxiliary, end)
 
 def make_anonymous_factorial():
     """Return the value of an expression that computes factorial.
@@ -240,9 +240,7 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    def factorial(n):
-        if n == 1 :
-            return 1
-        return n*factorial(n-1)
-    return factorial
+    return (lambda f: (lambda x: f(lambda v: x(x)(v)))(
+        lambda x: f(lambda v: x(x)(v)))
+            )(lambda fact: lambda n: 1 if n == 0 else n * fact(n - 1))
 
